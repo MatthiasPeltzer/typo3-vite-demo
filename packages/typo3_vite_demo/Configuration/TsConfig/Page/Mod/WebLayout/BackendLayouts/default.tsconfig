@@ -1,0 +1,38 @@
+#
+# BACKENDLAYOUT: DEFAULT
+#
+mod {
+    web_layout {
+        BackendLayouts {
+            default {
+                title = LLL:EXT:typo3_vite_demo/Resources/Private/Language/locallang_be.xlf:backend_layout.default
+                config {
+                    backend_layout {
+                        colCount = 1
+                        rowCount = 2
+                        rows {
+                            1 {
+                                columns {
+                                    1 {
+                                        name = LLL:EXT:typo3_vite_demo/Resources/Private/Language/locallang_be.xlf:backend_layout.column.above
+                                        colPos = 0
+                                    }
+                                }
+                            }
+                            2 {
+                                columns {
+                                    1 {
+                                        name = LLL:EXT:typo3_vite_demo/Resources/Private/Language/locallang_be.xlf:backend_layout.column.below
+                                        colPos = 1
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+                icon = EXT:typo3_vite_demo/Resources/Public/Images/BackendLayouts/default.svg
+            }
+        }
+    }
+}

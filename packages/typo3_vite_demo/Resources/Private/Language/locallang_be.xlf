@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+    <file source-language="en" datatype="plaintext" original="messages" date="2022-08-03UTC11:04:540">
+        <body>
+            <trans-unit id="backend_layout.default">
+                <source>Default</source>
+            </trans-unit>
+            <trans-unit id="backend_layout.column.above">
+				<source>Above</source>
+            </trans-unit>
+			<trans-unit id="backend_layout.column.below">
+				<source>Below</source>
+			</trans-unit>
+        </body>
+    </file>
+</xliff>

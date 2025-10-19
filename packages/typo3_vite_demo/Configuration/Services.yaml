@@ -1,0 +1,10 @@
+services:
+  _defaults:
+    autowire: true
+    autoconfigure: true
+    public: false
+
+  MatthiasPeltzer\Typo3ViteDemo\:
+    resource: '../Classes/*'
+    exclude: '../Classes/Domain/Model/*'
+

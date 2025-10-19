@@ -1,0 +1,4 @@
+# Allow build scripts for trusted packages (pnpm v10+)
+# This tells pnpm to not warn about build scripts
+ignore-scripts=false
+

@@ -1,0 +1,7 @@
+#!/bin/bash
+
+## Description: run app-typo3cms (typo3 console) in cli
+## Usage: app-typo3cms
+## Example: "ddev app-typo3cms"
+
+ddev exec TYPO3_CONTEXT=Development/Docker ./vendor/bin/typo3cms $@

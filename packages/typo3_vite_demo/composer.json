@@ -1,0 +1,24 @@
+{
+    "name": "matthias-peltzer/typo3-vite-demo",
+    "version": "0.0.2",
+    "type": "typo3-cms-extension",
+    "description": "",
+    "homepage": "https://www.mpeltzer.de/",
+    "license": ["GPL-2.0-or-later"],
+    "keywords": ["TYPO3 CMS"],
+    "require": {
+        "typo3/cms-core": "^13.4",
+        "typo3/cms-rte-ckeditor": "^13.4",
+        "typo3/cms-fluid-styled-content": "^13.4"
+    },
+    "autoload": {
+        "psr-4": {
+            "MatthiasPeltzer\\Typo3ViteDemo\\": "Classes/"
+        }
+    },
+    "extra": {
+        "typo3/cms": {
+            "extension-key": "typo3_vite_demo"
+        }
+    }
+}

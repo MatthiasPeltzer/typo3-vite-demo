@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<xliff version="1.0">
+    <file source-language="en" datatype="plaintext" original="messages" date="2022-08-03UTC11:04:540">
+        <body>
+    <!-- Vue TodoList Plugin -->
+    <trans-unit id="typo3vitedemo_todolist">
+        <source>Vue: TodoList</source>
+    </trans-unit>
+    <trans-unit id="typo3vitedemo_todolist.name">
+        <source>Vue: TodoList</source>
+    </trans-unit>
+    <trans-unit id="typo3vitedemo_todolist.description">
+        <source>Interactive to-do list built with Vue 3. Add, complete, and manage tasks with filtering and session storage.</source>
+    </trans-unit>
+    
+    <!-- FlexForm Labels -->
+    <trans-unit id="flexform.todolist.tab.settings">
+        <source>TodoList Settings</source>
+    </trans-unit>
+    <trans-unit id="flexform.todolist.settings">
+        <source>General Settings</source>
+    </trans-unit>
+    <trans-unit id="flexform.todolist.appearance">
+        <source>Appearance</source>
+    </trans-unit>
+    
+    <!-- Feature Toggles -->
+    <trans-unit id="flexform.todolist.showDeleteButton">
+        <source>Show Delete Button</source>
+    </trans-unit>
+    <trans-unit id="flexform.todolist.showDeleteButton.enable">
+        <source>Enable delete button for individual tasks</source>
+    </trans-unit>
+    <trans-unit id="flexform.todolist.showFilter">
+        <source>Show Filter Buttons</source>
+    </trans-unit>
+    <trans-unit id="flexform.todolist.showFilter.enable">
+        <source>Enable filter buttons (All/Active/Completed)</source>
+    </trans-unit>
+    <trans-unit id="flexform.todolist.showClearCompleted">
+        <source>Show Clear Completed Button</source>
+    </trans-unit>
+    <trans-unit id="flexform.todolist.showClearCompleted.enable">
+        <source>Enable button to clear all completed tasks</source>
+    </trans-unit>
+    <trans-unit id="flexform.todolist.maxItems">
+        <source>Maximum Items</source>
+    </trans-unit>
+    
+    <!-- Pre-populated Items -->
+    <trans-unit id="flexform.todolist.predefinedItems">
+        <source>Pre-populated Tasks</source>
+    </trans-unit>
+    <trans-unit id="flexform.todolist.predefinedItems.description">
+        <source>Enter one task per line. These tasks will appear when the to-do list is first loaded (if session storage is empty).</source>
+    </trans-unit>
+    
+    <!-- Appearance -->
+    <trans-unit id="flexform.todolist.cardTitle">
+        <source>Card Title</source>
+    </trans-unit>
+    <trans-unit id="flexform.todolist.colorScheme">
+        <source>Color Scheme</source>
+    </trans-unit>
+    <trans-unit id="flexform.todolist.colorScheme.primary">
+        <source>Primary (Blue)</source>
+    </trans-unit>
+    <trans-unit id="flexform.todolist.colorScheme.success">
+        <source>Success (Green)</source>
+    </trans-unit>
+    <trans-unit id="flexform.todolist.colorScheme.info">
+        <source>Info (Cyan)</source>
+    </trans-unit>
+    <trans-unit id="flexform.todolist.colorScheme.warning">
+        <source>Warning (Yellow)</source>
+    </trans-unit>
+    <trans-unit id="flexform.todolist.colorScheme.danger">
+        <source>Danger (Red)</source>
+    </trans-unit>
+</body>
+    </file>
+</xliff>

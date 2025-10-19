@@ -1,0 +1,11 @@
+#!/bin/bash
+
+## Description: run app-typo3cms cache:flush
+## Usage: app-t3cache
+## Example: "ddev app-t3cache"
+
+if [[ $1 = "debug" ]]; then
+ddev exec PHP_IDE_CONFIG=serverName=${DDEV_PRIMARY_URL} XDEBUG_CONFIG=idekey=PHPSTORM TYPO3_CONTEXT=Development/Docker ./vendor/bin/typo3cms cache:flush
+else
+ddev exec TYPO3_CONTEXT=Development/Docker ./vendor/bin/typo3cms cache:flush
+fi

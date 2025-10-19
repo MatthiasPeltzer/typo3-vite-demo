@@ -1,0 +1,10 @@
+@use 'colors';
+
+/* Base */
+h2 {
+  color: var(--bs-teal) !important;
+
+  &.card-title {
+    color: var(--bs-white) !important;
+  }
+}

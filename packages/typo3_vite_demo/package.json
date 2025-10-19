@@ -1,0 +1,24 @@
+{
+  "name": "typo3-vite-demo",
+  "version": "1.0.0",
+  "author": "Matthias Peltzer",
+  "engines": {
+    "node": "^22"
+  },
+  "scripts": {
+    "dev": "vite --port 5173 --host",
+    "build": "vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@popperjs/core": "^2.11.8",
+    "bootstrap": "^5.3.8"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^6.0.1",
+    "sass-embedded": "^1.93.2",
+    "vite": "^7.1.10",
+    "vue": "^3.5.22"
+  }
+}
+

@@ -1,0 +1,134 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes" ?>
+<T3DataStructure>
+    <meta>
+        <langDisable>1</langDisable>
+    </meta>
+    <sheets>
+        <sDEF>
+            <ROOT>
+                <sheetTitle>LLL:EXT:typo3_vite_demo/Resources/Private/Language/locallang_db.xlf:flexform.todolist.settings</sheetTitle>
+                <type>array</type>
+                <el>
+                    <!-- Features -->
+                    <settings.showDeleteButton>
+                        <label>LLL:EXT:typo3_vite_demo/Resources/Private/Language/locallang_db.xlf:flexform.todolist.showDeleteButton</label>
+                        <config>
+                            <type>check</type>
+                            <default>1</default>
+                            <renderType>checkboxToggle</renderType>
+                            <items>
+                                <numIndex index="0">
+                                    <label>LLL:EXT:typo3_vite_demo/Resources/Private/Language/locallang_db.xlf:flexform.todolist.showDeleteButton.enable</label>
+                                    <invertStateDisplay>0</invertStateDisplay>
+                                </numIndex>
+                            </items>
+                        </config>
+                    </settings.showDeleteButton>
+                    
+                    <settings.showFilter>
+                        <label>LLL:EXT:typo3_vite_demo/Resources/Private/Language/locallang_db.xlf:flexform.todolist.showFilter</label>
+                        <config>
+                            <type>check</type>
+                            <default>1</default>
+                            <renderType>checkboxToggle</renderType>
+                            <items>
+                                <numIndex index="0">
+                                    <label>LLL:EXT:typo3_vite_demo/Resources/Private/Language/locallang_db.xlf:flexform.todolist.showFilter.enable</label>
+                                    <invertStateDisplay>0</invertStateDisplay>
+                                </numIndex>
+                            </items>
+                        </config>
+                    </settings.showFilter>
+                    
+                    <settings.showClearCompleted>
+                        <label>LLL:EXT:typo3_vite_demo/Resources/Private/Language/locallang_db.xlf:flexform.todolist.showClearCompleted</label>
+                        <config>
+                            <type>check</type>
+                            <default>1</default>
+                            <renderType>checkboxToggle</renderType>
+                            <items>
+                                <numIndex index="0">
+                                    <label>LLL:EXT:typo3_vite_demo/Resources/Private/Language/locallang_db.xlf:flexform.todolist.showClearCompleted.enable</label>
+                                    <invertStateDisplay>0</invertStateDisplay>
+                                </numIndex>
+                            </items>
+                        </config>
+                    </settings.showClearCompleted>
+                    
+                    <settings.maxItems>
+                        <label>LLL:EXT:typo3_vite_demo/Resources/Private/Language/locallang_db.xlf:flexform.todolist.maxItems</label>
+                        <config>
+                            <type>number</type>
+                            <default>50</default>
+                            <range>
+                                <lower>1</lower>
+                                <upper>100</upper>
+                            </range>
+                        </config>
+                    </settings.maxItems>
+                    
+                    <!-- Pre-populated Items -->
+                    <settings.predefinedItems>
+                        <label>LLL:EXT:typo3_vite_demo/Resources/Private/Language/locallang_db.xlf:flexform.todolist.predefinedItems</label>
+                        <description>LLL:EXT:typo3_vite_demo/Resources/Private/Language/locallang_db.xlf:flexform.todolist.predefinedItems.description</description>
+                        <config>
+                            <type>text</type>
+                            <cols>40</cols>
+                            <rows>5</rows>
+                            <placeholder>Learn Vue 3&#10;Build something awesome&#10;Integrate with TYPO3</placeholder>
+                        </config>
+                    </settings.predefinedItems>
+                </el>
+            </ROOT>
+        </sDEF>
+        
+        <sAppearance>
+            <ROOT>
+                <sheetTitle>LLL:EXT:typo3_vite_demo/Resources/Private/Language/locallang_db.xlf:flexform.todolist.appearance</sheetTitle>
+                <type>array</type>
+                <el>
+                    <settings.cardTitle>
+                        <label>LLL:EXT:typo3_vite_demo/Resources/Private/Language/locallang_db.xlf:flexform.todolist.cardTitle</label>
+                        <config>
+                            <type>input</type>
+                            <size>30</size>
+                            <default>My To-Do List</default>
+                        </config>
+                    </settings.cardTitle>
+                    
+                    <settings.colorScheme>
+                        <label>LLL:EXT:typo3_vite_demo/Resources/Private/Language/locallang_db.xlf:flexform.todolist.colorScheme</label>
+                        <config>
+                            <type>select</type>
+                            <renderType>selectSingle</renderType>
+                            <items>
+                                <numIndex index="0">
+                                    <label>LLL:EXT:typo3_vite_demo/Resources/Private/Language/locallang_db.xlf:flexform.todolist.colorScheme.primary</label>
+                                    <value>primary</value>
+                                </numIndex>
+                                <numIndex index="1">
+                                    <label>LLL:EXT:typo3_vite_demo/Resources/Private/Language/locallang_db.xlf:flexform.todolist.colorScheme.success</label>
+                                    <value>success</value>
+                                </numIndex>
+                                <numIndex index="2">
+                                    <label>LLL:EXT:typo3_vite_demo/Resources/Private/Language/locallang_db.xlf:flexform.todolist.colorScheme.info</label>
+                                    <value>info</value>
+                                </numIndex>
+                                <numIndex index="3">
+                                    <label>LLL:EXT:typo3_vite_demo/Resources/Private/Language/locallang_db.xlf:flexform.todolist.colorScheme.warning</label>
+                                    <value>warning</value>
+                                </numIndex>
+                                <numIndex index="4">
+                                    <label>LLL:EXT:typo3_vite_demo/Resources/Private/Language/locallang_db.xlf:flexform.todolist.colorScheme.danger</label>
+                                    <value>danger</value>
+                                </numIndex>
+                            </items>
+                            <default>primary</default>
+                        </config>
+                    </settings.colorScheme>
+                </el>
+            </ROOT>
+        </sAppearance>
+    </sheets>
+</T3DataStructure>
+

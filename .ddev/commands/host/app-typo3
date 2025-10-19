@@ -1,0 +1,7 @@
+#!/bin/bash
+
+## Description: run app-typo3 cli
+## Usage: app-typo3
+## Example: "ddev app-typo3"
+
+ddev exec TYPO3_CONTEXT=Development/Docker ./vendor/bin/typo3 $@

@@ -1,0 +1,23 @@
+<f:layout name="Default" />
+<f:section name="Main">
+    <main class="main-wrapper" id="mainContent">
+        <div class="container">
+            <h1 class="pt-4">{data.title}</h1>
+
+            <f:cObject typoscriptObjectPath="lib.dynamicContent" data="{colPos: '0'}" />
+
+            <f:comment><!--Show TodoList only on homepage (root page)--></f:comment>
+
+            <f:if condition="{data.is_siteroot}">
+                <div data-container="vue" data-component="TodoList"></div>
+            </f:if>
+
+            <f:cObject typoscriptObjectPath="lib.dynamicContent" data="{colPos: '1'}" />
+        </div>
+    </main>
+    <footer class="footer bg-body-tertiary mt-auto">
+        <div class="container">
+            <p class="text-center py-4 pb-0 white">© {f:format.date(date: 'now', format: 'Y')} - TYPO3 Bootstrap Vite</p>
+        </div>
+    </footer>
+</f:section>

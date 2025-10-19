@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xliff xmlns="urn:oasis:names:tc:xliff:document:1.2" version="1.2">
+  <file source-language="en" datatype="plaintext" original="EXT:opendocs/Resources/Private/Language/locallang.xlf" date="2011-10-17T20:22:34Z" product-name="opendocs" target-language="de">
+    <header/>
+    <body>
+      <trans-unit id="toolbaritem" approved="yes">
+        <source>Open and recently used documents</source>
+        <target state="final">Geöffnete und kürzlich verwendete Dokumente</target>
+      </trans-unit>
+      <trans-unit id="toolbarItems.headline" approved="yes">
+        <source>Open and recently used documents</source>
+        <target state="final">Geöffnete und kürzlich verwendete Dokumente</target>
+      </trans-unit>
+      <trans-unit id="toolbarItems.openDocuments.headline" approved="yes">
+        <source>Open documents</source>
+        <target state="final">Geöffnete Dokumente</target>
+      </trans-unit>
+      <trans-unit id="toolbarItems.openDocuments.emptyList" approved="yes">
+        <source>There are currently no open documents.</source>
+        <target state="final">Zurzeit gibt es keine offenen Dokumente.</target>
+      </trans-unit>
+      <trans-unit id="toolbarItems.openDocuments.btn.closeAllDocs" approved="yes">
+        <source>Close all open documents</source>
+        <target state="final">Alle geöffneten Dokumente schließen</target>
+      </trans-unit>
+      <trans-unit id="toolbarItems.recentDocuments.headline" approved="yes">
+        <source>Recently used documents</source>
+        <target state="final">Kürzlich verwendete Dokumente</target>
+      </trans-unit>
+      <trans-unit id="toolbarItems.recentDocuments.emptyList" approved="yes">
+        <source>No documents were used recently.</source>
+        <target state="final">In letzter Zeit wurden keine Dokumente verwendet.</target>
+      </trans-unit>
+    </body>
+  </file>
+</xliff>

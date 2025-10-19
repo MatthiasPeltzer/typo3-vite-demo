@@ -31,7 +31,6 @@ cd typo3-vite-demo
 ddev start
 ddev exec cp .env.example .env
 ddev composer install
-ddev snapshot restore --latest
 ```
 
 Login via [typo3-vite-demo.ddev.site/typo3](https://typo3-vite-demo.ddev.site/typo3) using these credentials:

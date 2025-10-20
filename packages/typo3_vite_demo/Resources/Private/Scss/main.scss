@@ -1,6 +1,17 @@
-@use 'colors';
+/**
+ * Main SCSS Entry Point
+ * 
+ * This file is the entry point for all styles.
+ * It imports Bootstrap with custom variables and your custom styles.
+ */
 
-/* Base */
+// 1. Import Bootstrap with custom variables
+@import 'bootstrap/bootstrap';
+
+// 2. Import your custom styles
+@import 'colors';
+
+/* Custom Styles */
 h2 {
   color: var(--bs-teal) !important;
 

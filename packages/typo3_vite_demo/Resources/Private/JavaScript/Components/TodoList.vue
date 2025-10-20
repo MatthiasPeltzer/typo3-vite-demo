@@ -21,7 +21,7 @@ const loadTodos = () => {
   if (saved) {
     return JSON.parse(saved);
   }
-  
+
   // Use predefined items from backend if available
   if (config.value.predefinedItems) {
     const items = config.value.predefinedItems
@@ -35,7 +35,7 @@ const loadTodos = () => {
       }));
     if (items.length > 0) return items;
   }
-  
+
   // Default items
   return [
     { id: 1, text: 'Learn Vue 3', completed: false },
@@ -71,7 +71,7 @@ onMounted(() => {
       config.value.predefinedItems = container.dataset.predefinedItems;
     }
   }
-  
+
   // Load todos after config is loaded
   todos.value = loadTodos();
 });
@@ -118,7 +118,7 @@ function addTodo() {
       announcement.value = `Cannot add more tasks. Maximum of ${config.value.maxItems} items reached.`;
       return;
     }
-    
+
     todos.value.push({
       id: nextId++,
       text,
@@ -291,7 +291,7 @@ function clearCompleted() {
           <button
             v-if="config.showDelete"
             @click="deleteTodo(todo.id)"
-            class="btn btn-sm btn-outline-danger opacity-75 hover-opacity-100"
+            class="btn btn-sm btn-outline-primary opacity-75 hover-opacity-100"
             style="min-width: 70px; white-space: nowrap;"
             :aria-label="`Delete ${todo.text}`"
             :title="`Delete ${todo.text}`"
@@ -310,7 +310,7 @@ function clearCompleted() {
         <button
           v-if="config.showClear && hasCompletedTodos"
           @click="clearCompleted"
-          class="btn btn-sm btn-danger"
+          class="btn btn-sm btn-primary"
           style="min-width: 140px; white-space: nowrap;"
           :aria-label="`Clear ${todos.length - activeTodosCount} completed ${todos.length - activeTodosCount === 1 ? 'task' : 'tasks'}`"
         >

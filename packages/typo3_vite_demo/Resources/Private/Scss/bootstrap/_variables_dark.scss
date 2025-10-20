@@ -1,0 +1,37 @@
+/**
+ * Bootstrap Variable Overrides (Dark Mode)
+ * 
+ * These styles apply when dark mode is active.
+ * Bootstrap 5.3+ supports color modes via data-bs-theme="dark"
+ */
+
+// Dark mode is handled by Bootstrap's built-in color mode system
+// You can override CSS custom properties for dark mode here
+
+[data-bs-theme="dark"] {
+  // Override CSS custom properties for dark mode
+  // --bs-body-color: #dee2e6;
+  // --bs-body-bg: #212529;
+  // --bs-primary: #0d6efd;
+  // --bs-secondary: #6c757d;
+  
+  // Custom dark mode adjustments
+  // Example: Make cards slightly lighter in dark mode
+  // --bs-card-bg: #2b3035;
+  
+  // Example: Adjust border colors
+  // --bs-border-color: #495057;
+}
+
+// Alternative: Using prefers-color-scheme media query
+@media (prefers-color-scheme: dark) {
+  :root:not([data-bs-theme]) {
+    // Automatic dark mode based on system preference
+    // These apply when no explicit data-bs-theme is set
+    
+    // Uncomment to enable automatic dark mode
+    // --bs-body-color: #dee2e6;
+    // --bs-body-bg: #212529;
+  }
+}
+

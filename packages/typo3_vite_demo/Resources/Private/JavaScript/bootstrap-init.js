@@ -1,10 +1,8 @@
 /**
  * Bootstrap 5 initialization
- * Import Bootstrap CSS and JavaScript
+ * Import Bootstrap JavaScript only
+ * (CSS is imported via SCSS with custom variables in main.scss)
  */
-
-// Import Bootstrap CSS
-import 'bootstrap/dist/css/bootstrap.min.css';
 
 // Import Bootstrap JavaScript (includes Popper.js)
 import * as bootstrap from 'bootstrap';

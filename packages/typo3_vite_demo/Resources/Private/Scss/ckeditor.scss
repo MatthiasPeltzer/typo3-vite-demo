@@ -11,34 +11,83 @@
    CKEditor Simple Customization
    ============================================ */
 
-.ck {
-  &.ck-editor__main {
-    > .ck-editor__editable {
-      // Style all content elements inside CKEditor
-      h1, h2, h3, h4, h5, h6, p, a, strong, b, em, i, blockquote, code, pre {
-        color: var(--bs-gray-200);
-      }
+// Dark mode - detect TYPO3 backend dark mode via data attributes or classes
+[data-color-scheme="dark"],
+[data-theme="dark"],
+.dark-mode {
+  .ck {
+    &.ck-editor__main {
+      > .ck-editor__editable {
+        background-color: var(--bs-gray-900) !important;
+        color: var(--bs-white) !important;
 
-      a {
-        &:hover {
-          color: var(--bs-gray-200);
+        h1, h2, h3, h4, h5, h6, p, a, strong, b, em, i, blockquote, code, pre {
+          color: var(--bs-white);
+        }
+
+        a {
+          color: var(--bs-white);
+
+          &:hover {
+            color: var(--bs-white);
+          }
+        }
+
+        ul, ol {
+          li {
+            color: var(--bs-white);
+          }
+        }
+
+        table {
+          td, th {
+            color: var(--bs-white);
+          }
+        }
+
+        hr {
+          border-top-color: var(--bs-white);
         }
       }
+    }
+  }
+}
 
-      ul, ol {
-        li {
-          color: var(--bs-gray-200);
+// Also support system dark mode preference
+@media (prefers-color-scheme: dark) {
+  .ck {
+    &.ck-editor__main {
+      > .ck-editor__editable {
+        background-color: var(--bs-gray-900) !important;
+        color: var(--bs-white) !important;
+
+        h1, h2, h3, h4, h5, h6, p, a, strong, b, em, i, blockquote, code, pre {
+          color: var(--bs-white);
         }
-      }
 
-      table {
-        td, th {
-          color: var(--bs-gray-200);
+        a {
+          color: var(--bs-white);
+
+          &:hover {
+            color: var(--bs-white);
+          }
         }
-      }
 
-      hr {
-        border-top: 2px solid var(--bs-gray-200);;
+        ul, ol {
+          li {
+            color: var(--bs-white);
+          }
+        }
+
+        table {
+          td, th {
+            color: var(--bs-white);
+          }
+        }
+
+        hr {
+          border-top-color: var(--bs-white);
+        }
       }
     }
   }

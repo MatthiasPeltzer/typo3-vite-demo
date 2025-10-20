@@ -43,6 +43,12 @@ export default defineConfig({
   },
   css: {
     devSourcemap: true, // disabled by default because of performance reasons
+    preprocessorOptions: {
+      scss: {
+        quietDeps: true, // Suppress deprecation warnings from dependencies
+        silenceDeprecations: ['import', 'global-builtin', 'color-functions'], // Silence specific deprecations
+      },
+    },
   }
 })
 

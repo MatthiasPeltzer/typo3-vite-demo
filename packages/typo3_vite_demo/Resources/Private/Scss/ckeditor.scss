@@ -1,0 +1,45 @@
+/**
+ * CKEditor 5 Custom Styling for TYPO3
+ *
+ * Simple custom styles for the CKEditor 5 rich text editor
+ */
+
+// Import custom colors if needed
+@import 'colors';
+
+/* ============================================
+   CKEditor Simple Customization
+   ============================================ */
+
+.ck {
+  &.ck-editor__main {
+    > .ck-editor__editable {
+      // Style all content elements inside CKEditor
+      h1, h2, h3, h4, h5, h6, p, a, strong, b, em, i, blockquote, code, pre {
+        color: var(--bs-gray-200);
+      }
+
+      a {
+        &:hover {
+          color: var(--bs-gray-200);
+        }
+      }
+
+      ul, ol {
+        li {
+          color: var(--bs-gray-200);
+        }
+      }
+
+      table {
+        td, th {
+          color: var(--bs-gray-200);
+        }
+      }
+
+      hr {
+        border-top: 2px solid var(--bs-gray-200);;
+      }
+    }
+  }
+}

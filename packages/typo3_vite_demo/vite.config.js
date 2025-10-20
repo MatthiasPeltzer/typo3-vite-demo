@@ -23,7 +23,20 @@ export default defineConfig({
   publicDir: false, // disable copy `public/` to outDir
   build: {
     rollupOptions: {
-      input: 'Resources/Private/JavaScript/main.js', // Entry point relative to extension root
+      input: {
+        main: 'Resources/Private/JavaScript/main.js', // Frontend entry point
+        ckeditor: 'Resources/Private/Scss/ckeditor.scss', // ckeditor styles entry point
+      },
+      output: {
+        assetFileNames: (assetInfo) => {
+          // Output ckeditor.css without hash for easy TYPO3 backend registration
+          if (assetInfo.name === 'ckeditor.css') {
+            return 'ckeditor.css';
+          }
+          // Keep hashed filenames for other assets
+          return 'assets/[name]-[hash][extname]';
+        },
+      },
     },
     manifest: 'manifest.json', // generate manifest.json in outDir root (not in .vite/)
     outDir: 'Resources/Public/Vite/', // `pnpm build` purges outDir

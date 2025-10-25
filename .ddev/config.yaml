@@ -11,9 +11,12 @@ database:
   version: "11.4"
 hooks:
   post-start:
-    - exec-host: ddev db-restore
+    # Restore database backup if it exists (works on all platforms)
+    - exec-host: "ddev db-restore || true"
+    # Start Vite dev server in background
     - exec: .ddev/commands/web/vite-serve
   pre-stop:
+    # Backup database before stopping (works on all platforms)
     - exec-host: ddev db-backup
 use_dns_when_possible: true
 composer_version: "2"

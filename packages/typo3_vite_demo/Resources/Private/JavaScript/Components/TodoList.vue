@@ -1,13 +1,87 @@
 <script setup>
 import { ref, computed, watch, nextTick, onMounted } from 'vue';
 
+// i18n translations
+const translations = {
+  en: {
+    cardTitle: 'My To-Do List',
+    placeholder: 'What needs to be done?',
+    add: 'Add',
+    all: 'All',
+    active: 'Active',
+    done: 'Done',
+    delete: 'Delete',
+    clearCompleted: 'Clear Completed',
+    task: 'task',
+    tasks: 'tasks',
+    remaining: 'remaining',
+    emptyAll: 'No todos yet! Add one above.',
+    emptyActive: 'All done! Great job!',
+    emptyCompleted: 'No completed tasks yet.',
+    addedTask: 'Added task',
+    markedCompleted: 'Marked as completed',
+    markedActive: 'Marked as active',
+    deletedTask: 'Deleted task',
+    cleared: 'Cleared',
+    maxReached: 'Cannot add more tasks. Maximum of {max} items reached.',
+    totalTasks: 'total tasks',
+    activeTasks: 'active',
+    completedTasks: 'completed',
+    showAll: 'Show all tasks',
+    showActive: 'Show active tasks only',
+    showCompleted: 'Show completed tasks only',
+    markAs: 'Mark {text} as {state}',
+    max: 'max'
+  },
+  de: {
+    cardTitle: 'Meine Aufgabenliste',
+    placeholder: 'Was muss erledigt werden?',
+    add: 'Hinzufügen',
+    all: 'Alle',
+    active: 'Aktiv',
+    done: 'Erledigt',
+    delete: 'Löschen',
+    clearCompleted: 'Erledigte löschen',
+    task: 'Aufgabe',
+    tasks: 'Aufgaben',
+    remaining: 'verbleibend',
+    emptyAll: 'Noch keine Aufgaben! Füge eine oben hinzu.',
+    emptyActive: 'Alles erledigt! Großartig!',
+    emptyCompleted: 'Noch keine erledigten Aufgaben.',
+    addedTask: 'Aufgabe hinzugefügt',
+    markedCompleted: 'Als erledigt markiert',
+    markedActive: 'Als aktiv markiert',
+    deletedTask: 'Aufgabe gelöscht',
+    cleared: 'Gelöscht',
+    maxReached: 'Kann keine weiteren Aufgaben hinzufügen. Maximum von {max} Einträgen erreicht.',
+    totalTasks: 'Aufgaben insgesamt',
+    activeTasks: 'aktiv',
+    completedTasks: 'erledigt',
+    showAll: 'Alle Aufgaben anzeigen',
+    showActive: 'Nur aktive Aufgaben anzeigen',
+    showCompleted: 'Nur erledigte Aufgaben anzeigen',
+    markAs: '{text} als {state} markieren',
+    max: 'max'
+  }
+};
+
+// Detect language from HTML lang attribute
+const getLanguage = () => {
+  const htmlLang = document.documentElement.lang || 'en';
+  const lang = htmlLang.split('-')[0].toLowerCase();
+  return translations[lang] ? lang : 'en';
+};
+
+const currentLang = ref(getLanguage());
+const t = computed(() => translations[currentLang.value]);
+
 // Configuration from TYPO3 backend with defaults
 const config = ref({
   showDelete: true,
   showFilter: true,
   showClear: true,
   maxItems: 50,
-  cardTitle: 'My To-Do List',
+  cardTitle: '',
   colorScheme: 'primary',
   predefinedItems: ''
 });
@@ -44,6 +118,9 @@ const loadTodos = () => {
   ];
 };
 
+// Calculate next ID based on existing todos
+let nextId = 1;
+
 // Load configuration from data attributes
 onMounted(() => {
   const container = document.querySelector('[data-component="TodoList"]');
@@ -73,13 +150,24 @@ onMounted(() => {
   }
 
   // Load todos after config is loaded
-  todos.value = loadTodos();
+  let loadedTodos = loadTodos();
+  
+  // Reassign all IDs sequentially to prevent any duplicate ID issues
+  const fixedTodos = loadedTodos.map((todo, index) => ({
+    ...todo,
+    id: index + 1
+  }));
+  
+  todos.value = fixedTodos;
+  
+  // Save the fixed todos to sessionStorage
+  if (fixedTodos.length > 0) {
+    sessionStorage.setItem('todos', JSON.stringify(fixedTodos));
+  }
+  
+  // Set nextId to count + 1
+  nextId = fixedTodos.length + 1;
 });
-
-// Calculate next ID based on existing todos
-let nextId = todos.value.length > 0
-  ? Math.max(...todos.value.map(t => t.id)) + 1
-  : 1;
 
 const newTodo = ref('');
 const filter = ref('all'); // 'all', 'active', 'completed'
@@ -115,7 +203,7 @@ function addTodo() {
   if (text) {
     // Check max items limit
     if (config.value.maxItems && todos.value.length >= config.value.maxItems) {
-      announcement.value = `Cannot add more tasks. Maximum of ${config.value.maxItems} items reached.`;
+      announcement.value = t.value.maxReached.replace('{max}', config.value.maxItems);
       return;
     }
 
@@ -124,7 +212,7 @@ function addTodo() {
       text,
       completed: false
     });
-    announcement.value = `Added task: ${text}`;
+    announcement.value = `${t.value.addedTask}: ${text}`;
     newTodo.value = '';
 
     // Return focus to input after adding
@@ -139,15 +227,15 @@ function toggleTodo(id) {
   if (todo) {
     todo.completed = !todo.completed;
     announcement.value = todo.completed
-      ? `Marked "${todo.text}" as completed`
-      : `Marked "${todo.text}" as active`;
+      ? `${t.value.markedCompleted}: "${todo.text}"`
+      : `${t.value.markedActive}: "${todo.text}"`;
   }
 }
 
 function deleteTodo(id) {
   const todo = todos.value.find(t => t.id === id);
   if (todo) {
-    announcement.value = `Deleted task: ${todo.text}`;
+    announcement.value = `${t.value.deletedTask}: ${todo.text}`;
     todos.value = todos.value.filter(t => t.id !== id);
 
     // Return focus to input after deleting
@@ -160,7 +248,8 @@ function deleteTodo(id) {
 function clearCompleted() {
   const count = todos.value.filter(t => t.completed).length;
   todos.value = todos.value.filter(todo => !todo.completed);
-  announcement.value = `Cleared ${count} completed ${count === 1 ? 'task' : 'tasks'}`;
+  const taskWord = count === 1 ? t.value.task : t.value.tasks;
+  announcement.value = `${t.value.cleared} ${count} ${taskWord}`;
 
   // Return focus to input after clearing
   nextTick(() => {
@@ -177,13 +266,13 @@ function clearCompleted() {
     </div>
 
     <div :class="`card-header bg-${config.colorScheme} text-white py-3`">
-      <h2 id="todo-title" class="card-title text-center mb-0 h4">{{ config.cardTitle }}</h2>
+      <h2 id="todo-title" class="card-title text-center mb-0 h4">{{ config.cardTitle || t.cardTitle }}</h2>
     </div>
     <div class="card-body p-4">
 
       <!-- Add new todo -->
       <form @submit.prevent="addTodo" class="mb-4" aria-label="Add new todo">
-        <label for="new-todo-input" class="visually-hidden">New task description</label>
+        <label for="new-todo-input" class="visually-hidden">{{ t.placeholder }}</label>
         <div class="input-group input-group-lg">
           <input
             id="new-todo-input"
@@ -191,7 +280,7 @@ function clearCompleted() {
             v-model="newTodo"
             type="text"
             class="form-control"
-            placeholder="What needs to be done?"
+            :placeholder="t.placeholder"
             aria-describedby="todo-help"
           />
           <button
@@ -199,12 +288,12 @@ function clearCompleted() {
             class="btn btn-success h-100"
             style="min-width: 100px;"
             :disabled="!newTodo.trim()"
-            :aria-label="newTodo.trim() ? 'Add new task' : 'Enter a task to add'"
+            :aria-label="newTodo.trim() ? t.add : t.placeholder"
           >
-            Add
+            {{ t.add }}
           </button>
         </div>
-        <small id="todo-help" class="visually-hidden">Type a task and press Add or Enter to create a new todo item</small>
+        <small id="todo-help" class="visually-hidden">{{ t.placeholder }}</small>
       </form>
 
       <!-- Filter buttons -->
@@ -218,10 +307,10 @@ function clearCompleted() {
             autocomplete="off"
             :checked="filter === 'all'"
             @change="filter = 'all'"
-            aria-label="Show all tasks"
+            :aria-label="t.showAll"
           >
-          <label class="btn btn-outline-secondary" for="filter-all">
-            All <span class="badge bg-secondary rounded-pill" aria-label=", {{ todos.length }} total">{{ todos.length }}</span>
+          <label class="btn btn-outline-secondary me-2" for="filter-all">
+            {{ t.all }} <span class="badge bg-secondary badge-circle" :aria-label="`${todos.length} ${t.totalTasks}`">{{ todos.length }}</span>
           </label>
 
           <input
@@ -232,10 +321,10 @@ function clearCompleted() {
             autocomplete="off"
             :checked="filter === 'active'"
             @change="filter = 'active'"
-            aria-label="Show active tasks only"
+            :aria-label="t.showActive"
           >
-          <label class="btn btn-outline-secondary" for="filter-active">
-            Active <span class="badge bg-warning text-dark rounded-pill" aria-label=", {{ activeTodosCount }} active">{{ activeTodosCount }}</span>
+          <label class="btn btn-outline-secondary me-2" for="filter-active">
+            {{ t.active }} <span class="badge badge-warning badge-circle" :aria-label="`${activeTodosCount} ${t.activeTasks}`">{{ activeTodosCount }}</span>
           </label>
 
           <input
@@ -246,17 +335,17 @@ function clearCompleted() {
             autocomplete="off"
             :checked="filter === 'completed'"
             @change="filter = 'completed'"
-            aria-label="Show completed tasks only"
+            :aria-label="t.showCompleted"
           >
           <label class="btn btn-outline-secondary" for="filter-completed">
-            Done <span class="badge bg-success rounded-pill" aria-label=", {{ todos.length - activeTodosCount }} done">{{ todos.length - activeTodosCount }}</span>
+            {{ t.done }} <span class="badge badge-success badge-circle" :aria-label="`${todos.length - activeTodosCount} ${t.completedTasks}`">{{ todos.length - activeTodosCount }}</span>
           </label>
         </div>
       </div>
 
       <!-- Todo list -->
       <div v-if="filteredTodos.length === 0" class="text-center text-muted py-5" role="status" aria-live="polite">
-        <p class="fs-5">{{ filter === 'all' ? 'No todos yet! Add one above.' : filter === 'active' ? 'All done! Great job!' : 'No completed tasks yet.' }}</p>
+        <p class="fs-5">{{ filter === 'all' ? t.emptyAll : filter === 'active' ? t.emptyActive : t.emptyCompleted }}</p>
       </div>
 
       <ul v-else class="list-group list-group-flush" role="list" aria-label="Todo items">
@@ -264,7 +353,7 @@ function clearCompleted() {
           v-for="todo in filteredTodos"
           :key="todo.id"
           class="list-group-item d-flex align-items-center gap-3 py-3 border-start-0 border-end-0"
-          :class="{ 'bg-light': todo.completed }"
+          :class="{ 'todo-completed': todo.completed }"
           role="listitem"
         >
           <div class="form-check form-switch">
@@ -275,7 +364,7 @@ function clearCompleted() {
               @change="toggleTodo(todo.id)"
               class="form-check-input"
               role="switch"
-              :aria-label="`Mark ${todo.text} as ${todo.completed ? 'active' : 'completed'}`"
+              :aria-label="t.markAs.replace('{text}', todo.text).replace('{state}', todo.completed ? t.active : t.done)"
               :aria-checked="todo.completed"
               style="cursor: pointer; width: 3em; height: 1.5em;"
             />
@@ -293,10 +382,10 @@ function clearCompleted() {
             @click="deleteTodo(todo.id)"
             class="btn btn-sm btn-outline-primary opacity-75 hover-opacity-100"
             style="min-width: 70px; white-space: nowrap;"
-            :aria-label="`Delete ${todo.text}`"
-            :title="`Delete ${todo.text}`"
+            :aria-label="`${t.delete} ${todo.text}`"
+            :title="`${t.delete} ${todo.text}`"
           >
-            Delete
+            {{ t.delete }}
           </button>
         </li>
       </ul>
@@ -304,17 +393,17 @@ function clearCompleted() {
       <!-- Footer with stats -->
       <div v-if="todos.length > 0" class="d-flex justify-content-between align-items-center pt-4 mt-3 border-top" role="status" aria-live="polite" aria-atomic="true">
         <span class="text-muted" aria-label="Task summary">
-          <strong>{{ activeTodosCount }}</strong> {{ activeTodosCount === 1 ? 'task' : 'tasks' }} remaining
-          <span v-if="config.maxItems" class="ms-2">(max: {{ config.maxItems }})</span>
+          <strong>{{ activeTodosCount }}</strong> {{ activeTodosCount === 1 ? t.task : t.tasks }} {{ t.remaining }}
+          <span v-if="config.maxItems" class="ms-2">({{ t.max }}: {{ config.maxItems }})</span>
         </span>
         <button
           v-if="config.showClear && hasCompletedTodos"
           @click="clearCompleted"
           class="btn btn-sm btn-primary"
           style="min-width: 140px; white-space: nowrap;"
-          :aria-label="`Clear ${todos.length - activeTodosCount} completed ${todos.length - activeTodosCount === 1 ? 'task' : 'tasks'}`"
+          :aria-label="`${t.clearCompleted} (${todos.length - activeTodosCount})`"
         >
-          Clear Completed
+          {{ t.clearCompleted }}
         </button>
       </div>
     </div>
@@ -322,9 +411,22 @@ function clearCompleted() {
 </template>
 
 <style scoped>
+/* Use Bootstrap CSS variables for theme-aware styling */
+
+/* Card background - adapts to theme */
+.card {
+  background-color: var(--bs-body-bg);
+  color: var(--bs-body-color);
+  border-color: var(--bs-border-color);
+}
+
+.card-body {
+  background-color: var(--bs-body-bg);
+}
+
 .form-check-input:checked {
-  background-color: #198754;
-  border-color: #198754;
+  background-color: var(--bs-success);
+  border-color: var(--bs-success);
 }
 
 .hover-opacity-100:hover {
@@ -332,8 +434,8 @@ function clearCompleted() {
 }
 
 .btn-check:checked + .btn-outline-secondary {
-  background-color: #6c757d;
-  color: white;
+  background-color: var(--bs-secondary);
+  color: var(--bs-white);
 }
 
 .input-group-lg .form-control {
@@ -342,13 +444,131 @@ function clearCompleted() {
 
 .list-group-item {
   transition: background-color 0.2s ease;
+  background-color: var(--bs-body-bg);
+  border-color: var(--bs-border-color);
+  color: var(--bs-body-color);
 }
 
+/* Theme-aware hover states */
 .list-group-item:hover {
+  background-color: var(--bs-secondary-bg);
+}
+
+/* Completed todo styling - adapts to light/dark mode */
+.list-group-item.todo-completed {
+  background-color: var(--bs-tertiary-bg);
+}
+
+.list-group-item.todo-completed:hover {
+  background-color: var(--bs-secondary-bg);
+}
+
+/* Dark mode specific styling */
+[data-bs-theme="dark"] .card {
+  background-color: var(--bs-dark);
+  border-color: var(--bs-border-color);
+}
+
+[data-bs-theme="dark"] .card-body {
+  background-color: var(--bs-dark);
+}
+
+[data-bs-theme="dark"] .list-group-item {
+  background-color: var(--bs-dark);
+  border-color: var(--bs-border-color);
+}
+
+[data-bs-theme="dark"] .list-group-item:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+[data-bs-theme="dark"] .list-group-item.todo-completed {
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+[data-bs-theme="dark"] .list-group-item.todo-completed:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Light mode specific styling */
+[data-bs-theme="light"] .card {
+  background-color: var(--bs-white);
+  border-color: var(--bs-border-color);
+}
+
+[data-bs-theme="light"] .card-body {
+  background-color: var(--bs-white);
+}
+
+[data-bs-theme="light"] .list-group-item {
+  background-color: var(--bs-white);
+  border-color: var(--bs-border-color);
+}
+
+[data-bs-theme="light"] .list-group-item:hover {
   background-color: rgba(0, 0, 0, 0.02);
 }
 
-.list-group-item.bg-light:hover {
-  background-color: rgba(0, 0, 0, 0.05) !important;
+[data-bs-theme="light"] .list-group-item.todo-completed {
+  background-color: rgba(0, 0, 0, 0.03);
+}
+
+[data-bs-theme="light"] .list-group-item.todo-completed:hover {
+  background-color: rgba(0, 0, 0, 0.05);
+}
+
+/* Badge styling for both light and dark modes */
+.badge-warning {
+  background-color: #ffc107;
+  color: #000;
+}
+
+.badge-success {
+  background-color: #198754;
+  color: #fff;
+}
+
+/* Circular badge styling */
+.badge-circle {
+  border-radius: 50%;
+  width: 2em;
+  height: 2em;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  font-size: 0.75rem;
+  font-weight: 600;
+  line-height: 1;
+  margin-left: 0.5rem;
+}
+
+/* Dark mode badge styling */
+[data-bs-theme="dark"] .badge-warning {
+  background-color: #ffca2c;
+  color: #000;
+}
+
+[data-bs-theme="dark"] .badge-success {
+  background-color: #198754;
+  color: #fff;
+}
+
+/* Dark mode button styling - better contrast */
+[data-bs-theme="dark"] .btn-outline-secondary {
+  border-color: rgba(108, 117, 125, 0.5);
+  color: rgba(255, 255, 255, 0.75);
+}
+
+[data-bs-theme="dark"] .btn-outline-secondary:hover {
+  background-color: rgba(108, 117, 125, 0.2);
+  border-color: rgba(108, 117, 125, 0.7);
+  color: rgba(255, 255, 255, 0.9);
+}
+
+[data-bs-theme="dark"] .btn-check:checked + .btn-outline-secondary {
+  background-color: #6c757d;
+  border-color: #6c757d;
+  color: #fff;
 }
 </style>

@@ -43,6 +43,8 @@ This extension showcases how to integrate Vite into a TYPO3 CMS project, enablin
 - PHP 8.3+
 - DDEV (recommended for local development)
 
+> **📋 Cross-Platform Note:** This project works identically on Windows, macOS, and Linux. See [CROSS_PLATFORM.md](../../CROSS_PLATFORM.md) for details.
+
 ### TYPO3 Dependencies
 
 - `typo3/cms-core`: ^13.4
